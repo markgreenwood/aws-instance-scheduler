@@ -21,9 +21,11 @@ exports.handler = async event => {
     .then(filterRunning)
     .then(getInstanceIds);
 
+  const beforeOrAfterTen = moment(event.time).hour() < 22 ? 'before' : 'after';
+
   const response = {
     statusCode: 200,
-    body: JSON.stringify(`Running instances: ${result}\nIt's ${time}`),
+    body: JSON.stringify(`Running instances: ${result}. It's ${event.time}, ${beforeOrAfterTen} 10 PM`),
   };
 
   return response;
